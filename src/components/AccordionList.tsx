@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ScriptDisplay from '@/components/ScriptDisplay';
 import {ScriptData} from '@/types/globalTypes';
-
+const IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_URL;
 
 interface Props {
   allScripResult: ScriptData[];
@@ -30,7 +30,7 @@ const AccordionList: React.FC<Props> = ({ allScripResult }) => {
             <div className="p-4 bg-white w-full">
               <ScriptDisplay
                 name={item.name}
-                image_url={item.image_url}
+                image_url={`${IMAGE_URL}${item.image_url}`}
                 low_value={item.low_value}
               />
             </div>
