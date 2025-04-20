@@ -1,16 +1,12 @@
 import React from 'react';
 import  {ScriptData} from "@/types/globalTypes"
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
 function ScriptDisplay({ name, image_url }:ScriptData) {
   return (
     <div className="border-2 border-gray-300 rounded p-4 mb-4">
-      {/* <div className="mb-2 font-semibold text-lg text-blue-700 flex justify-between">
-      <span className="mb-2 text-gray-600">{name}</span>
-      <span className="mb-2 text-gray-600">Low Value: <strong>{low_value}</strong></span>
-      </div> */}
+   
       {image_url && (
         <img
-          src={`${API_URL}${image_url}`}
+          src={`${image_url}`}
           alt={`${name} Chart`}
           style={{ width: '100%', maxWidth: '600px', borderRadius: '8px' }}
         />
