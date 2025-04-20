@@ -208,7 +208,7 @@ function Page() {
             </button>
           </form>
           {/* {JSON.stringify(scripResult)} */}
-            {scripResult && scripResult?.image_url && (<><span>{`${IMAGE_URL}${scripResult?.image_url}`}</span>
+            {scripResult && scripResult?.image_url && (<>
             <ScriptDisplay name={scripResult?.name} image_url={`${IMAGE_URL}${scripResult?.image_url}`} low_value={scripResult?.low_value}/>
             </>
           )}
