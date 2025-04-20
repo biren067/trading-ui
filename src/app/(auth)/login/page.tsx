@@ -1,12 +1,11 @@
 'use client'
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/store/AuthContext';
 
 const LoginPage = () => {
   const router = useRouter();
   const { login } = useAuth();
-  const { role } = useAuth();
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
 
@@ -28,7 +27,7 @@ const LoginPage = () => {
       await login(formData.username, formData.password);
       router.push("/support-resistance")
       
-    } catch (err) {
+    } catch {
       setError('Invalid credentials');
     }
   };

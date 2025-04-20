@@ -1,7 +1,7 @@
 import React from 'react';
 import  {ScriptData} from "@/types/globalTypes"
 
-function ScriptDisplay({ name, image_url, low_value }:ScriptData) {
+function ScriptDisplay({ name, image_url }:ScriptData) {
   return (
     <div className="border-2 border-gray-300 rounded p-4 mb-4">
       {/* <div className="mb-2 font-semibold text-lg text-blue-700 flex justify-between">

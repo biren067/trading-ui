@@ -23,7 +23,7 @@ const refreshTokenFn = async () => {
 // Axios request interceptor: Attach token automatically
 axiosInstance.interceptors.request.use(
   async (config) => {
-    let token = localStorage.getItem('access_token');
+    const token = localStorage.getItem('access_token');
 
     if (!token) return config; // No token, proceed without it
 

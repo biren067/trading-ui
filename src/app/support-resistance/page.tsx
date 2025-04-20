@@ -26,7 +26,7 @@ function Page() {
     const [etf, setETF] = useState('');
     const [scripResult, setScripResult] = useState<ScriptData | null>(null);
     const [allScripResult, setAllScripResult] = useState<ScriptData[]>([]);
-    const [allScriptLoading, setAllScriptLoading] = useState<Boolean>(false);
+    const [allScriptLoading, setAllScriptLoading] = useState<boolean>(false);
     const [selectedOption, setSelectedOption] = useState<'script' | 'etf'>('script');
     
     
