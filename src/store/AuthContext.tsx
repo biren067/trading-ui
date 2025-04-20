@@ -37,7 +37,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const login = async (username: string, password: string) => {
-    const response = await axiosInstance.post(`${API_URL}/login/`, { username, password });
+    const uri = `${API_URL}/login/`
+    console.log("=============login URL::",uri)
+    const response = await axiosInstance.post(uri, { username, password });
     console.log("After successful login",response)
     const { access, refresh } = response.data;
     setAccessToken(access);
