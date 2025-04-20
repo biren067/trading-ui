@@ -1,6 +1,6 @@
 import React from 'react';
 import  {ScriptData} from "@/types/globalTypes"
-
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 function ScriptDisplay({ name, image_url }:ScriptData) {
   return (
     <div className="border-2 border-gray-300 rounded p-4 mb-4">
@@ -10,7 +10,7 @@ function ScriptDisplay({ name, image_url }:ScriptData) {
       </div> */}
       {image_url && (
         <img
-          src={`http://localhost:8000${image_url}`}
+          src={`${API_URL}${image_url}`}
           alt={`${name} Chart`}
           style={{ width: '100%', maxWidth: '600px', borderRadius: '8px' }}
         />
