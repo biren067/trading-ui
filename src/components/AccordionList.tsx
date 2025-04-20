@@ -41,4 +41,5 @@ const AccordionList: React.FC<Props> = ({ allScripResult }) => {
   );
 };
 
+
 export default AccordionList;
