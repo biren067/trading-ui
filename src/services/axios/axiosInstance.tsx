@@ -7,7 +7,8 @@ const axiosInstance = axios.create({ baseURL: API_URL });
 const refreshTokenFn = async () => {
   try {
     const response = await axiosInstance.post(`${API_URL}/token/refresh/`, {
-      refresh: localStorage.getItem('refresh_token'), // Store refresh token securely
+      refresh: localStorage.getItem('refresh_token'),
+      fyers_access_token: localStorage.getItem('fyers_access_token'),
     });
     
     localStorage.setItem('access_token', response.data.access); // Update access token
@@ -24,11 +25,21 @@ const refreshTokenFn = async () => {
 axiosInstance.interceptors.request.use(
   async (config) => {
     const token = localStorage.getItem('access_token');
+    // const fyersAccessToken = localStorage.getItem('fyers_access_token');
+    // console.log("localStorage::",localStorage);
+
 
     if (!token) return config; // No token, proceed without it
 
     // Attach Authorization header
     config.headers.Authorization = `Bearer ${token}`;
+    // if (fyersAccessToken) {
+    //   config.headers['fyers_access_token'] = fyersAccessToken;
+    // }
+    // else{
+    //   console.log("=================fysers_access_token not found")
+    // }
+
     return config;
   },
   (error) => Promise.reject(error)

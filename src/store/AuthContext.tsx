@@ -15,6 +15,8 @@ interface AuthState {
   logout: () => void;
   refreshTokenFn: () => Promise<void>;
   isLoggedIn: boolean | false;
+  // fyersToken: string | null;
+  // fyersAccessToken: (value: string) => void;
 }
 
 const AuthContext = createContext<AuthState | undefined>(undefined);
@@ -27,6 +29,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [userName, setUserName] = useState('')
   const [lastActivity, setLastActivity] = useState(Date.now());
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [fyersToken, setFyersToken] = useState('');
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -36,6 +39,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
+  // const fyersAccessToken = (value: string) => {
+  //   console.log("============setting fyers token:",value)
+  //   localStorage.setItem('fyers_access_token',value)
+  //   console.log("lacal storage set::",localStorage)
+  //   setFyersToken(value);
+  // };
+  
   const login = async (username: string, password: string) => {
     const uri = `${API_URL}/login/`
     console.log("=============login URL::",uri)
@@ -54,6 +64,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem('access_token', access);
       localStorage.setItem('refresh_token', refresh);
       localStorage.setItem('role', response.data.user.role);
+      // localStorage.setItem('fyers_access_token',fyersToken)
     }
     console.log("response::",response,role)
   };
@@ -66,6 +77,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.removeItem('access_token');
       localStorage.removeItem('refresh_token');
       localStorage.removeItem('role');
+      localStorage.removeItem('fyers_access_token')
     }
     console.log("*************Logout called:")
     router.push('/login');
@@ -112,6 +124,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   return (
     <AuthContext.Provider value={{ accessToken, refreshToken, role, login, logout, userName, refreshTokenFn: refreshTokenFn,isLoggedIn }}>
+      
       {children}
     </AuthContext.Provider>
   );

@@ -17,6 +17,8 @@ import { useAuth } from '@/store/AuthContext';
 
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+const IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_URL;
 function Page() {
 
     const [authUrl,setAuthUrl]=useState('')
@@ -30,9 +32,11 @@ function Page() {
     const [selectedOption, setSelectedOption] = useState<'script' | 'etf'>('script');
     
     
+    
+    
     const router = useRouter();
     const { isLoggedIn } = useAuth();    
-
+    // const { fyersAccessToken} = useAuth();
     useEffect(() => {
       // const token = localStorage.getItem("token");
       if (!isLoggedIn) {
@@ -45,8 +49,10 @@ function Page() {
         try {
           const res = await axiosInstance.post(`${API_URL}/generate-access-token/`,{authCodeUrl});
           console.log('Response:', res.data.message.status_code);
+          console.log('Response fyers_access_token:', res.data.message.fyers_access_token);
           // alert('Submitted successfully!');
           setAuthorizationProcess(res.data.message.status_code)
+          // fyersAccessToken(res.data.message.fyers_access_token)
         } catch (error) {
           console.error('Error submitting:', error);
           alert('Submission failed');
@@ -71,7 +77,8 @@ function Page() {
         // console.log(`${API_URL}/get-script?script=${script}`)
         try {
           const res = await axiosInstance.get(`${API_URL}/get-script/${script}`);
-          console.log('Response:', res.data);
+          // const res = await axiosInstance.get(`${API_URL}/get-script/${script}`,{"fyers_token":});
+          console.log(':::::::::::::::::::::::Response:::::::::::::::', res.data);
           setScripResult(res.data)
 
         } catch (error) {
@@ -200,8 +207,10 @@ function Page() {
               Submit
             </button>
           </form>
-            {scripResult && scripResult?.image_url && (
-            <ScriptDisplay name={scripResult?.name} image_url={scripResult?.image_url} low_value={scripResult?.low_value}/>
+          {/* {JSON.stringify(scripResult)} */}
+            {scripResult && scripResult?.image_url && (<><span>{`${IMAGE_URL}${scripResult?.image_url}`}</span>
+            <ScriptDisplay name={scripResult?.name} image_url={`${IMAGE_URL}${scripResult?.image_url}`} low_value={scripResult?.low_value}/>
+            </>
           )}
         </div>
       )}
