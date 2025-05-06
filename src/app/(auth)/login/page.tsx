@@ -5,7 +5,7 @@ import { useAuth } from '@/store/AuthContext';
 
 const LoginPage = () => {
   const router = useRouter();
-  const { login } = useAuth();
+  const { login,isLoggedIn } = useAuth();
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
 
@@ -34,7 +34,7 @@ const LoginPage = () => {
 
   return (
     <div style={{ padding: '2rem', maxWidth: '400px', margin: '0 auto' }}>
-      <h1 className="">{'Login'}</h1>
+      <h1 className="py-3 font-bond text-3xl text-center text-white">{'Login'}</h1>
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: '1rem' }}>
           <label>Username:</label>
@@ -49,7 +49,7 @@ const LoginPage = () => {
         <div style={{ marginBottom: '1rem' }}>
           <label>Password:</label>
           <input
-            type="text"
+            type="password"
             name="password"
             value={formData.password}
             onChange={handleChange}

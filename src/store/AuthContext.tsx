@@ -15,8 +15,8 @@ interface AuthState {
   logout: () => void;
   refreshTokenFn: () => Promise<void>;
   isLoggedIn: boolean | false;
-  // fyersToken: string | null;
-  // fyersAccessToken: (value: string) => void;
+  isFyersLoggedIn: boolean | false;
+  updateFyersLoggin: (value: boolean) =>  Promise<void>;
 }
 
 const AuthContext = createContext<AuthState | undefined>(undefined);
@@ -29,16 +29,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [userName, setUserName] = useState('')
   const [lastActivity, setLastActivity] = useState(Date.now());
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isFyersLoggedIn, setIsFyersLoggedIn] = useState(false);
   // const [fyersToken, setFyersToken] = useState('');
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      setAccessToken(localStorage.getItem('access_token'));
-      setRefreshToken(localStorage.getItem('refresh_token'));
+      setAccessToken(localStorage.getItem('accessToken'));
+      setRefreshToken(localStorage.getItem('refreshToken'));
       setRole(localStorage.getItem('role'));
     }
   }, []);
-
+  const updateFyersLoggin = (value:boolean)=>(    setIsFyersLoggedIn(value))
   // const fyersAccessToken = (value: string) => {
   //   console.log("============setting fyers token:",value)
   //   localStorage.setItem('fyers_access_token',value)
@@ -54,17 +55,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const { access, refresh } = response.data;
     setAccessToken(access);
     setRefreshToken(refresh);
-    setIsLoggedIn(true)
+    setIsLoggedIn(true);
+    setIsFyersLoggedIn(false);
     console.log("Role is ::",response.data.user.role)
     setRole(response.data.user.role);
     setUserName(username)
     setLastActivity(Date.now());
 
     if (typeof window !== 'undefined') {
-      localStorage.setItem('access_token', access);
-      localStorage.setItem('refresh_token', refresh);
+      localStorage.setItem('accessToken', access);
+      localStorage.setItem('refreshToken', refresh);
       localStorage.setItem('role', response.data.user.role);
-      // localStorage.setItem('fyers_access_token',fyersToken)
     }
     console.log("response::",response,role)
   };
@@ -72,14 +73,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     setAccessToken(null);
     setRefreshToken(null);
+    setIsFyersLoggedIn(false);
     setRole(null);
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
       localStorage.removeItem('role');
       localStorage.removeItem('fyers_access_token')
     }
-    console.log("*************Logout called:")
+    setIsLoggedIn(false)
+    setIsFyersLoggedIn(false)
+    console.log("*************Logout called:",localStorage)
     router.push('/login');
   };
 
@@ -123,7 +127,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, [lastActivity, refreshToken]);
 
   return (
-    <AuthContext.Provider value={{ accessToken, refreshToken, role, login, logout, userName, refreshTokenFn: refreshTokenFn,isLoggedIn }}>
+    <AuthContext.Provider value={{ accessToken, refreshToken, role, login, logout, userName, refreshTokenFn,isLoggedIn,isFyersLoggedIn,updateFyersLoggin }}>
       
       {children}
     </AuthContext.Provider>

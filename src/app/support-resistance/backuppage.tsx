@@ -1,6 +1,6 @@
 'use client';
 import React,{useState,useEffect} from 'react';
-// import Link from 'next/link';
+import Link from 'next/link';
 import { useRouter } from "next/navigation";
 import axiosInstance from '@/services/axios/axiosInstance';
 import ScriptDisplay from "@/components/ScriptDisplay"
@@ -21,9 +21,9 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const IMAGE_URL = process.env.NEXT_PUBLIC_IMAGE_URL;
 function Page() {
 
-    // const [authUrl,setAuthUrl]=useState('')
-    // const [authCodeUrl,setAuthCodeUrl]=useState('')
-    // const [authorizationProcess,setAuthorizationProcess]=useState('')
+    const [authUrl,setAuthUrl]=useState('')
+    const [authCodeUrl,setAuthCodeUrl]=useState('')
+    const [authorizationProcess,setAuthorizationProcess]=useState('')
     const [script, setScript] = useState('');
     const [etf, setETF] = useState('');
     const [scripResult, setScripResult] = useState<ScriptData | null>(null);
@@ -35,49 +35,41 @@ function Page() {
     
     
     const router = useRouter();
-    const { isLoggedIn,isFyersLoggedIn } = useAuth();    
+    const { isLoggedIn } = useAuth();    
     // const { fyersAccessToken} = useAuth();
     useEffect(() => {
       // const token = localStorage.getItem("token");
-      console.log("********isLoggedIn",isLoggedIn)
-      console.log("********isFyersLoggedIn",isFyersLoggedIn)
       if (!isLoggedIn) {
-        console.log("****login")
         router.push("/login");
-      }else{
-        if(!isFyersLoggedIn){
-          console.log("****fyerslogin")
-          router.push("/fyersLogin");
-        }
       }
     }, []);
-    // const GenerateAccesstoken = async (e: React.FormEvent) => {
-    //     e.preventDefault();
+    const GenerateAccesstoken = async (e: React.FormEvent) => {
+        e.preventDefault();
     
-    //     try {
-    //       const res = await axiosInstance.post(`${API_URL}/generate-access-token/`,{authCodeUrl});
-    //       console.log('Response:', res.data.message.status_code);
-    //       console.log('Response fyers_access_token:', res.data.message.fyers_access_token);
-    //       // alert('Submitted successfully!');
-    //       setAuthorizationProcess(res.data.message.status_code)
-    //       // fyersAccessToken(res.data.message.fyers_access_token)
-    //     } catch (error) {
-    //       console.error('Error submitting:', error);
-    //       alert('Submission failed');
-    //     }
-    //   };
+        try {
+          const res = await axiosInstance.post(`${API_URL}/generate-access-token/`,{authCodeUrl});
+          console.log('Response:', res.data.message.status_code);
+          console.log('Response fyers_access_token:', res.data.message.fyers_access_token);
+          // alert('Submitted successfully!');
+          setAuthorizationProcess(res.data.message.status_code)
+          // fyersAccessToken(res.data.message.fyers_access_token)
+        } catch (error) {
+          console.error('Error submitting:', error);
+          alert('Submission failed');
+        }
+      };
 
-    //   const fetchAuthCode = async (e: React.FormEvent) => {
-    //     e.preventDefault();
+      const fetchAuthCode = async (e: React.FormEvent) => {
+        e.preventDefault();
     
-    //     try {
-    //       const response = await axiosInstance.get(`${API_URL}/get-auth-url/`);
-    //       setAuthUrl(response.data.auth_url);
-    //       // console.log('Response:', res.data);
-    //     } catch (error) {
-    //       console.error('Error submitting:', error);
-    //     }
-    //   };
+        try {
+          const response = await axiosInstance.get(`${API_URL}/get-auth-url/`);
+          setAuthUrl(response.data.auth_url);
+          // console.log('Response:', res.data);
+        } catch (error) {
+          console.error('Error submitting:', error);
+        }
+      };
 
 
       const executeScript = async (e: React.FormEvent) => {
@@ -112,8 +104,58 @@ function Page() {
 
   return (
     <div className="flex flex-col items-center mt-20">
-      
-      {/* <div className={authorizationProcess === '' ? 'hidden' : 'block'}> */}
+      <h1 className="text-2xl font-bold mb-6">Support Trading Strategy</h1>
+      <div className={authorizationProcess === '' ? 'block' : 'hidden'}>
+      {authUrl?(<></>):(
+      <form className="w-full max-w-sm" onSubmit={ fetchAuthCode} >
+          <div className="mb-4">
+            <label className="block text-gray-700 font-semibold mb-2" htmlFor="script">
+              Fetch Auth Code:
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+          >
+            Submit
+          </button>
+        </form>
+      )}
+        
+
+
+
+
+        {authUrl && (
+          <div>
+              <div className='flex gap-2 justify-center items-align'>
+                <div className="mb-4">
+                <label className="block text-gray-700 font-semibold mb-2" htmlFor="script"> Generate Auth token </label>
+                    {/* <input type="text" name="access_token" value={authCodeUrl}  onChange={(e) => setAuthCodeUrl(e.target.value)} className="w-full p-2 border rounded mb-2" /> */}
+                </div>
+                <Link href={authUrl} target="_blank" rel="noopener noreferrer" className=" btn text-blue-600 h-10">
+                  Get Access Token
+              </Link>
+            </div>
+          <form className="w-full max-w-sm" onSubmit={ GenerateAccesstoken}>
+          <div className="mb-4"> 
+           <label className="block text-gray-700 font-semibold mb-2" htmlFor="script"> Generate Access Token </label>
+              <input type="text" name="access_token" value={authCodeUrl}  onChange={(e) => setAuthCodeUrl(e.target.value)} className="w-full p-2 border rounded mb-2" />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+          >
+            Submit
+          </button>
+        </form>
+        </div>
+         
+          )}
+        </div>
+      <div className={authorizationProcess === '' ? 'hidden' : 'block'}>
       {/* ======================================== */}
       {/* 🔘 Radio Buttons */}
       <div className="mb-6">
@@ -189,8 +231,6 @@ function Page() {
                 <option value="">-- Select --</option>
                 <option value="NIFTY50">NIFYT 50</option>
                 <option value="NIFTY100">NIFTY 100</option>
-                <option value="NIFTY200">NIFTY 200</option>
-                <option value="NIFTY500">NIFTY 500</option>
                 </select>
 
             </div>
@@ -211,7 +251,7 @@ function Page() {
          )}
       </div>
 
-      // </div>
+      </div>
     // </div>
   );
 }

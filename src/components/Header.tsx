@@ -1,22 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname,useRouter, } from "next/navigation";
+import { useAuth } from '@/store/AuthContext';
 
 const navItems = [
   { name: "Home", href: "/" },
-//   { name: "About", href: "/about" },
+  { name: "Dashboard", href: "/dashboard" },
 //   { name: "Contact", href: "/contact" },
-  { name: "Login", href: "/login" },
+  // { name: "Login", href: "/login" },
+  // { name: "Logout", href: "/logout" },
 ];
 
+
+
+
 export default function Header() {
+  const { isLoggedIn,logout} = useAuth();    
   const pathname = usePathname();
+  const router = useRouter();
+  const handleLogout = () => {
+    logout();               // call logout function from context
+  };
 
   return (
-    <header className="w-full bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold text-black">
+    <header className="w-full text-white shadow-md sticky top-0 z-50 bg-black">
+      <div className="px-4 py-3 flex items-center justify-between">
+        <Link href="/" className="text-xl font-bold">
           Black Aura
         </Link>
         <nav className="flex space-x-6">
@@ -24,13 +34,33 @@ export default function Header() {
             <Link
               key={item.href}
               href={item.href}
-              className={`text-sm font-medium hover:text-blue-600 ${
-                pathname === item.href ? "text-blue-600" : "text-gray-700"
+              className={`text-sm font-medium hover:text-blue-600 py-auto ${
+                pathname === item.href ? "text-yellow-300 " : "text-white"
               }`}
             >
               {item.name}
             </Link>
           ))}
+          {/* Show Login or Logout based on auth status */}
+          {isLoggedIn ? (
+            <button
+              onClick={handleLogout}
+              className={`text-sm font-medium hover:text-blue-600 ${
+                pathname === "/logout" ? "text-yellow-300" : "text-white"
+              }`}
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className={`text-sm font-medium hover:text-blue-600 ${
+                pathname === "/login" ? "text-yellow-300" : "text-white"
+              }`}
+            >
+              Login
+            </Link>
+          )}
         </nav>
       </div>
     </header>
