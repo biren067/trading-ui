@@ -27,7 +27,7 @@ export default function Header() {
     <header className="w-full text-white shadow-md sticky top-0 z-50 bg-black">
       <div className="px-4 py-3 flex items-center justify-between">
         <Link href="/" className="text-xl font-bold">
-          Black Aura
+          Trading
         </Link>
         <nav className="flex space-x-6">
           {navItems.map((item) => (

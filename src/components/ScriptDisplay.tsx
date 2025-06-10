@@ -84,7 +84,7 @@ function ScriptDisplay({ name, image_url }:ScriptData) {
                     value={formData.boughtDate}
                     onChange={handleChange}
                     className="border px-2 py-1 rounded w-1/2"
-                    defaultValue={new Date().toISOString().split('T')[0]}
+                    // defaultValue={new Date().toISOString().split('T')[0]}
                   />
 
             </div>
