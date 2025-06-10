@@ -5,7 +5,7 @@ import { useAuth } from '@/store/AuthContext';
 
 const LoginPage = () => {
   const router = useRouter();
-  const { login,isLoggedIn } = useAuth();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
 

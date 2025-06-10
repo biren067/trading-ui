@@ -18,7 +18,7 @@ function ScriptDisplay({ name, image_url }:ScriptData) {
   });
 
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -27,7 +27,7 @@ function ScriptDisplay({ name, image_url }:ScriptData) {
 
 
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     try {

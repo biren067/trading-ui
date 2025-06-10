@@ -10,7 +10,7 @@ import { useAuth } from '@/store/AuthContext';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 function FyerLogin() {
 
-    const {isLoggedIn, isFyersLoggedIn,updateFyersLoggin } = useAuth();
+    const {isLoggedIn,updateFyersLoggin } = useAuth();
     const [authUrl,setAuthUrl]=useState('')
     const [authCodeUrl,setAuthCodeUrl]=useState('')
     const [authorizationProcess,setAuthorizationProcess]=useState('')

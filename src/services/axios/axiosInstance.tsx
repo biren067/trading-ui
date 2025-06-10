@@ -96,7 +96,7 @@ axiosInstance.interceptors.response.use(
         originalRequest.headers["Authorization"] = `Bearer ${newAccess}`;
 
         return axios(originalRequest);
-      } catch (refreshError) {
+      } catch {
         // Token refresh failed, redirect to login
         window.location.href = "/login";
       }
