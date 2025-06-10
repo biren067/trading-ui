@@ -16,7 +16,7 @@ interface AuthState {
   refreshTokenFn: () => Promise<void>;
   isLoggedIn: boolean | false;
   isFyersLoggedIn: boolean | false;
-  updateFyersLoggin: (value: boolean) =>  Promise<void>;
+  updateFyersLoggin: (value: boolean) =>  void;
 }
 
 const AuthContext = createContext<AuthState | undefined>(undefined);
