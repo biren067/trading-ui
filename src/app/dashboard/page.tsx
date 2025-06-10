@@ -17,7 +17,7 @@ const columns = [
 
 export default function Dashboard() {
   const [isloading,setIsLoading] = useState(true)
-  const [stockList,setStockList] = useState({})
+  const [stockList,setStockList] = useState([])
   useEffect(() => {
     const executeScript = async () => {
       try {

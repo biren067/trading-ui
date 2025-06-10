@@ -42,7 +42,7 @@ function Page() {
       if (!isLoggedIn) {
         router.push("/login");
       }
-    }, []);
+    }, [isLoggedIn, router]);
     const GenerateAccesstoken = async (e: React.FormEvent) => {
         e.preventDefault();
     
