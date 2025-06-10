@@ -155,6 +155,7 @@ function Page() {
                 <option value="cipla">CIPLA</option>
                 <option value="piind">PIIND</option>
                 <option value="DRReddy">Dr Reddy</option>
+                <option value="HDFCBANK">HDFC BANK</option>
                 </select>
 
             </div>
