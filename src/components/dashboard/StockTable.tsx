@@ -207,8 +207,7 @@ export default function StockTable<T extends object>({
 }: TableProps<T>) {
   return (
    <Box sx={{ height: 400, width: '100%' }}>
-    {JSON.stringify(data)}
-    {JSON.stringify(columns)}
+
       <DataGrid
         rows={data}
         columns={columns}
