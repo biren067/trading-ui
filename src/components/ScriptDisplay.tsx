@@ -28,23 +28,23 @@ function ScriptDisplay({ name, image_url }:ScriptData) {
 
 
 
-  const handleSubmit = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      console.log("formData:",formData)
-    
-      const uri = `${API_URL}${stockBought}`
-      if (formData.boughtAt=='' || formData.targetAt=='')
-        {setErrorLog("Please update Bought At and Target At ")}
-      else{
-        const response = await axiosInstance.post(uri, { formData});
+      console.log("formData:", formData);
+
+      const uri = `${API_URL}${stockBought}`;
+      if (formData.boughtAt == '' || formData.targetAt == '') {
+        setErrorLog("Please update Bought At and Target At ");
+      } else {
+        const response = await axiosInstance.post(uri, { formData });
         if (!response) throw new Error('Failed to submit data');
 
         const result = await response.data;
-        setSuccessLog(`Successfully Stored ${formData.script}`)
+        setSuccessLog(`Successfully Stored ${formData.script}`);
         console.log('Success saved:', result);
-       }
+      }
     } catch (error) {
       console.error('Error submitting form:', error);
     }
