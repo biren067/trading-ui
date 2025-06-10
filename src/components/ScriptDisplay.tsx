@@ -54,18 +54,19 @@ function ScriptDisplay({ name, image_url }:ScriptData) {
 
 
   return (
-    <div className="border-2 border-gray-300 rounded p-4 mb-4">
+    <div className="border-2 border-gray-300 rounded p-4 mb-4 max-w-lg w-full mx-auto">
    
       {image_url && (
         <img
           src={`${image_url}`}
           alt={`${name} Chart`}
-          style={{ width: '100%', maxWidth: '600px', borderRadius: '8px' }}
+          className="w-full max-w-full rounded-lg mb-4 object-contain"
+          style={{ maxHeight: 300 }}
         />
       )}
         <div>
-        <form onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             <div className="flex flex-row justify-between items-center">
               <label htmlFor="boughtAt" className='w-1/2'>Bought At</label>
               <input id="boughtAt" name="boughtAt" type="text" value={formData.boughtAt} onChange={handleChange} className="border px-2 py-1 rounded w-1/2" />
@@ -84,8 +85,7 @@ function ScriptDisplay({ name, image_url }:ScriptData) {
                     type="date"
                     value={formData.boughtDate}
                     onChange={handleChange}
-                    className="border px-2 py-1 rounded w-1/2"
-                    // defaultValue={new Date().toISOString().split('T')[0]}
+                    className="border px-3 py-2 rounded w-full"
                   />
 
             </div>
