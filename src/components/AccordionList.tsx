@@ -17,13 +17,13 @@ const AccordionList: React.FC<Props> = ({ allScripResult }) => {
   return (
     <div className="space-y-4">
       {allScripResult.map((item, index) => (
-        <div key={index} className="border border-2 rounded shadow">
+        <div key={index} className="border border-2 rounded shadow mx-2">
           <div
             onClick={() => toggleAccordion(index)}
-              className="cursor-pointer  px-4 py-2 bg-gray-200 hover:bg-gray-300 font-semibold flex justify-between transition-all duration-300"
+              className="cursor-pointer rounded px-4 py-2 bg-cyan-100 hover:bg-gray-300 font-semibold flex justify-between transition-all duration-300"
           >
             <span>{item.name}</span>
-            <span>{item.low_value}</span>
+            <span className="bg-green-600 px-2 mx-2 rounded text-white">{item.low_value}</span>
           </div>
 
           {openIndex === index && (
