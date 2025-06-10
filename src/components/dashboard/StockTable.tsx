@@ -194,6 +194,7 @@
 // filepath: d:\Biren\trading-ui\src\components\dashboard\StockTable.tsx
 import * as React from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import '@mui/x-data-grid/styles.css';
 import Box from '@mui/material/Box';
 
 type TableProps<T extends object> = {
