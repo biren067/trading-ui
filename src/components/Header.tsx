@@ -18,7 +18,7 @@ const navItems = [
 export default function Header() {
   const { isLoggedIn,logout} = useAuth();    
   const pathname = usePathname();
-  const router = useRouter();
+  // const router = useRouter();
   const handleLogout = () => {
     logout();               // call logout function from context
   };

@@ -4,22 +4,22 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const axiosInstance = axios.create({ baseURL: API_URL });
 
 // Function to refresh the token
-const refreshTokenFn = async () => {
-  try {
-    const response = await axiosInstance.post(`${API_URL}/token/refresh/`, {
-      refresh: localStorage.getItem('refreshToken'),
-      fyers_access_token: localStorage.getItem('fyers_access_token'),
-    });
+// const refreshTokenFn = async () => {
+//   try {
+//     const response = await axiosInstance.post(`${API_URL}/token/refresh/`, {
+//       refresh: localStorage.getItem('refreshToken'),
+//       fyers_access_token: localStorage.getItem('fyers_access_token'),
+//     });
     
-    localStorage.setItem('accessToken', response.data.access); // Update access token
-    return response.data.access;
-  } catch (error) {
-    console.error("Failed to refresh token", error);
-    localStorage.removeItem('accessToken'); // Clear tokens if refresh fails
-    localStorage.removeItem('refreshToken');
-    throw error;
-  }
-};
+//     localStorage.setItem('accessToken', response.data.access); // Update access token
+//     return response.data.access;
+//   } catch (error) {
+//     console.error("Failed to refresh token", error);
+//     localStorage.removeItem('accessToken'); // Clear tokens if refresh fails
+//     localStorage.removeItem('refreshToken');
+//     throw error;
+//   }
+// };
 
 // Axios request interceptor: Attach token automatically
 axiosInstance.interceptors.request.use(

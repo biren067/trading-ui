@@ -1,9 +1,9 @@
 import React,{useState} from 'react';
+import Image from 'next/image';
 import  {ScriptData} from "@/types/globalTypes"
 import { stockBought } from '@/utils/endpoints';
 import axiosInstance from '@/services/axios/axiosInstance';
-import { FingerPrintIcon } from '@heroicons/react/16/solid';
-
+// import { FingerPrintIcon } from '@heroicons/react/16/solid';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 function ScriptDisplay({ name, image_url }:ScriptData) {
@@ -18,7 +18,7 @@ function ScriptDisplay({ name, image_url }:ScriptData) {
   });
 
 
-  const handleChange = (e) => {
+  const handleChange = (e:any) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -27,7 +27,7 @@ function ScriptDisplay({ name, image_url }:ScriptData) {
 
 
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:any) => {
     e.preventDefault();
 
     try {
@@ -56,7 +56,7 @@ function ScriptDisplay({ name, image_url }:ScriptData) {
     <div className="border-2 border-gray-300 rounded p-4 mb-4">
    
       {image_url && (
-        <img
+        <Image
           src={`${image_url}`}
           alt={`${name} Chart`}
           style={{ width: '100%', maxWidth: '600px', borderRadius: '8px' }}
