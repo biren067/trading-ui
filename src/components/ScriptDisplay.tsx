@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import  {ScriptData} from "@/types/globalTypes"
 import { stockBought } from '@/utils/endpoints';
 import axiosInstance from '@/services/axios/axiosInstance';
@@ -57,7 +57,7 @@ function ScriptDisplay({ name, image_url }:ScriptData) {
     <div className="border-2 border-gray-300 rounded p-4 mb-4">
    
       {image_url && (
-        <Image
+        <img
           src={`${image_url}`}
           alt={`${name} Chart`}
           style={{ width: '100%', maxWidth: '600px', borderRadius: '8px' }}
