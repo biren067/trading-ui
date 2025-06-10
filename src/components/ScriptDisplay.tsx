@@ -19,6 +19,7 @@ function ScriptDisplay({ name, image_url }:ScriptData) {
 
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      e.preventDefault();
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
