@@ -27,7 +27,7 @@ const AccordionList: React.FC<Props> = ({ allScripResult }) => {
           </div>
 
           {openIndex === index && (
-            <div className="p-4 bg-white w-full">
+            <div className="p-4 bg-white">
               <ScriptDisplay
                 name={item.name}
                 image_url={`${IMAGE_URL}${item.image_url}`}
